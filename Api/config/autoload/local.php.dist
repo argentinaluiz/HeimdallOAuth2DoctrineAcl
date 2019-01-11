@@ -1,0 +1,29 @@
+<?php
+return [
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'adapters' => [
+                'oauth2' => [
+                    'adapter' => \ZF\MvcAuth\Authentication\OAuth2Adapter::class,
+                    'storage' => [
+                        'adapter' => \pdo::class,
+                        'dsn' => 'mysql:dbname=Heimdall_OAuth2;host=localhost',
+                        'route' => '/oauth',
+                        'username' => '',
+                        'password' => '',
+                    ],
+                ],
+                'zf-oauth2-doctrine' => [
+                    'adapter' => \ZF\MvcAuth\Authentication\OAuth2Adapter::class,
+                    'storage' => [
+                        'adapter' => \pdo::class,
+                        'dsn' => 'mysql:host=localhost;dbname=Heimdall_OAuth2',
+                        'route' => '/oauth2',
+                        'username' => '',
+                        'password' => '',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
