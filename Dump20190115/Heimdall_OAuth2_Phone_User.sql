@@ -18,35 +18,32 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `AuthorizationCode_OAuth2`
+-- Table structure for table `Phone_User`
 --
 
-DROP TABLE IF EXISTS `AuthorizationCode_OAuth2`;
+DROP TABLE IF EXISTS `Phone_User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `AuthorizationCode_OAuth2` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `client_id` bigint(20) NOT NULL,
+CREATE TABLE `Phone_User` (
   `user_id` int(11) DEFAULT NULL,
-  `authorizationCode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `redirectUri` longtext COLLATE utf8_unicode_ci,
-  `expires` datetime DEFAULT NULL,
-  `idToken` longtext COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`),
-  KEY `IDX_7DED2FDD19EB6921` (`client_id`),
-  KEY `IDX_7DED2FDDA76ED395` (`user_id`),
-  CONSTRAINT `FK_7DED2FDD19EB6921` FOREIGN KEY (`client_id`) REFERENCES `Client_OAuth2` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_7DED2FDDA76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `phoneId` int(11) NOT NULL AUTO_INCREMENT,
+  `phone` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `codPrefix` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `codCountry` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`phoneId`),
+  KEY `IDX_81F828B5A76ED395` (`user_id`),
+  CONSTRAINT `FK_81F828B5A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `AuthorizationCode_OAuth2`
+-- Dumping data for table `Phone_User`
 --
 
-LOCK TABLES `AuthorizationCode_OAuth2` WRITE;
-/*!40000 ALTER TABLE `AuthorizationCode_OAuth2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `AuthorizationCode_OAuth2` ENABLE KEYS */;
+LOCK TABLES `Phone_User` WRITE;
+/*!40000 ALTER TABLE `Phone_User` DISABLE KEYS */;
+INSERT INTO `Phone_User` VALUES (1,1,'932085754',NULL,NULL);
+/*!40000 ALTER TABLE `Phone_User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  8:37:28
+-- Dump completed on 2019-01-15 20:47:53

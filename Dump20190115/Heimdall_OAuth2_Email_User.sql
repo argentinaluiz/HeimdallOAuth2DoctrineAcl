@@ -18,30 +18,35 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `AccessTokenToScope_OAuth2`
+-- Table structure for table `Email_User`
 --
 
-DROP TABLE IF EXISTS `AccessTokenToScope_OAuth2`;
+DROP TABLE IF EXISTS `Email_User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `AccessTokenToScope_OAuth2` (
-  `scope_id` bigint(20) NOT NULL,
-  `access_token_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`scope_id`,`access_token_id`),
-  KEY `IDX_49A2A53D682B5931` (`scope_id`),
-  KEY `IDX_49A2A53D2CCB2688` (`access_token_id`),
-  CONSTRAINT `FK_49A2A53D2CCB2688` FOREIGN KEY (`access_token_id`) REFERENCES `AccessToken_OAuth2` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_49A2A53D682B5931` FOREIGN KEY (`scope_id`) REFERENCES `Scope_OAuth2` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `Email_User` (
+  `user_id` int(11) DEFAULT NULL,
+  `emailId` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
+  `isFirst` tinyint(1) DEFAULT NULL,
+  `checked` tinyint(1) DEFAULT NULL,
+  `hash` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  `mailing` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`emailId`),
+  KEY `IDX_FDCA5A22A76ED395` (`user_id`),
+  CONSTRAINT `FK_FDCA5A22A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `AccessTokenToScope_OAuth2`
+-- Dumping data for table `Email_User`
 --
 
-LOCK TABLES `AccessTokenToScope_OAuth2` WRITE;
-/*!40000 ALTER TABLE `AccessTokenToScope_OAuth2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `AccessTokenToScope_OAuth2` ENABLE KEYS */;
+LOCK TABLES `Email_User` WRITE;
+/*!40000 ALTER TABLE `Email_User` DISABLE KEYS */;
+INSERT INTO `Email_User` VALUES (1,1,'nataliadesouzasantaana@gmail.com',NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `Email_User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  8:37:27
+-- Dump completed on 2019-01-15 20:47:54

@@ -18,28 +18,30 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Scope_OAuth2`
+-- Table structure for table `RefreshTokenToScope_OAuth2`
 --
 
-DROP TABLE IF EXISTS `Scope_OAuth2`;
+DROP TABLE IF EXISTS `RefreshTokenToScope_OAuth2`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `Scope_OAuth2` (
-  `id` bigint(20) NOT NULL,
-  `scope` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `isDefault` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_95A8FC4EAF55D3` (`scope`)
+CREATE TABLE `RefreshTokenToScope_OAuth2` (
+  `scope_id` bigint(20) NOT NULL,
+  `refresh_token_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`scope_id`,`refresh_token_id`),
+  KEY `IDX_A8852CC9682B5931` (`scope_id`),
+  KEY `IDX_A8852CC9F765F60E` (`refresh_token_id`),
+  CONSTRAINT `FK_9F46C12E682B5931` FOREIGN KEY (`scope_id`) REFERENCES `Scope_OAuth2` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_9F46C12EF765F60E` FOREIGN KEY (`refresh_token_id`) REFERENCES `RefreshToken_OAuth2` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Scope_OAuth2`
+-- Dumping data for table `RefreshTokenToScope_OAuth2`
 --
 
-LOCK TABLES `Scope_OAuth2` WRITE;
-/*!40000 ALTER TABLE `Scope_OAuth2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Scope_OAuth2` ENABLE KEYS */;
+LOCK TABLES `RefreshTokenToScope_OAuth2` WRITE;
+/*!40000 ALTER TABLE `RefreshTokenToScope_OAuth2` DISABLE KEYS */;
+/*!40000 ALTER TABLE `RefreshTokenToScope_OAuth2` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  8:37:27
+-- Dump completed on 2019-01-15 20:47:52

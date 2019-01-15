@@ -18,30 +18,30 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `User`
+-- Table structure for table `AccessTokenToScope_OAuth2`
 --
 
-DROP TABLE IF EXISTS `User`;
+DROP TABLE IF EXISTS `AccessTokenToScope_OAuth2`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `User` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
-  `firstName` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lastName` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `AccessTokenToScope_OAuth2` (
+  `scope_id` bigint(20) NOT NULL,
+  `access_token_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`scope_id`,`access_token_id`),
+  KEY `IDX_5274B2D6682B5931` (`scope_id`),
+  KEY `IDX_5274B2D62CCB2688` (`access_token_id`),
+  CONSTRAINT `FK_49A2A53D2CCB2688` FOREIGN KEY (`access_token_id`) REFERENCES `AccessToken_OAuth2` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_49A2A53D682B5931` FOREIGN KEY (`scope_id`) REFERENCES `Scope_OAuth2` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `User`
+-- Dumping data for table `AccessTokenToScope_OAuth2`
 --
 
-LOCK TABLES `User` WRITE;
-/*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'johndoe','John','Doe','$2y$10$GoGyBajldlbjCYhgtch/f.Mi1mQursc/W/HD0D7/2UrMRlHFEahTe');
-/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+LOCK TABLES `AccessTokenToScope_OAuth2` WRITE;
+/*!40000 ALTER TABLE `AccessTokenToScope_OAuth2` DISABLE KEYS */;
+/*!40000 ALTER TABLE `AccessTokenToScope_OAuth2` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  8:37:28
+-- Dump completed on 2019-01-15 20:47:53

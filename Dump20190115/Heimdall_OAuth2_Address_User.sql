@@ -18,29 +18,38 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Role_Acl`
+-- Table structure for table `Address_User`
 --
 
-DROP TABLE IF EXISTS `Role_Acl`;
+DROP TABLE IF EXISTS `Address_User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `Role_Acl` (
-  `role_id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
-  `acl_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`role_id`),
-  KEY `IDX_C9D9CDD6727ACA70` (`parent_id`),
-  CONSTRAINT `FK_C9D9CDD6727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `Role_Acl` (`role_id`)
+CREATE TABLE `Address_User` (
+  `user_id` int(11) DEFAULT NULL,
+  `addressId` int(11) NOT NULL AUTO_INCREMENT,
+  `street` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `number` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `complement` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `zip_cod` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `state` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reference` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parish` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `neighborhood` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`addressId`),
+  KEY `IDX_48DC7264A76ED395` (`user_id`),
+  CONSTRAINT `FK_48DC7264A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Role_Acl`
+-- Dumping data for table `Address_User`
 --
 
-LOCK TABLES `Role_Acl` WRITE;
-/*!40000 ALTER TABLE `Role_Acl` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Role_Acl` ENABLE KEYS */;
+LOCK TABLES `Address_User` WRITE;
+/*!40000 ALTER TABLE `Address_User` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Address_User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  8:37:28
+-- Dump completed on 2019-01-15 20:47:53

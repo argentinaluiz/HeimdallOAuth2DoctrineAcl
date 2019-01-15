@@ -33,9 +33,9 @@ CREATE TABLE `Client_OAuth2` (
   `grantType` longtext COLLATE utf8_unicode_ci COMMENT '(DC2Type:array)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_A66D48A8EA1CE9BE` (`clientId`),
-  KEY `IDX_A66D48A8A76ED395` (`user_id`),
+  KEY `IDX_7C3E757BA76ED395` (`user_id`),
   CONSTRAINT `FK_A66D48A8A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `Client_OAuth2` (
 
 LOCK TABLES `Client_OAuth2` WRITE;
 /*!40000 ALTER TABLE `Client_OAuth2` DISABLE KEYS */;
-INSERT INTO `Client_OAuth2` VALUES (4,NULL,'testclient','$2y$10$CBr5HNYBEcik3n1IOC/dIeMIUN4tSrPxkZwl.EHh65Pl3Ay4IK5lG','','a:1:{i:0;s:8:\"password\";}');
+INSERT INTO `Client_OAuth2` VALUES (1,NULL,'testclient','$2y$10$CwUl65ik2JDiE.F3oGSG8umehaIu9/LnnM1B7bEzu8Y3bUxhIQZP2','','a:1:{i:0;s:8:\"password\";}');
 /*!40000 ALTER TABLE `Client_OAuth2` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  8:37:27
+-- Dump completed on 2019-01-15 20:47:52

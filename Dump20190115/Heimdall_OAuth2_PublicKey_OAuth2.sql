@@ -18,33 +18,31 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `RefreshToken_OAuth2`
+-- Table structure for table `PublicKey_OAuth2`
 --
 
-DROP TABLE IF EXISTS `RefreshToken_OAuth2`;
+DROP TABLE IF EXISTS `PublicKey_OAuth2`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `RefreshToken_OAuth2` (
+CREATE TABLE `PublicKey_OAuth2` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `client_id` bigint(20) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `refreshToken` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `expires` datetime DEFAULT NULL,
+  `publicKey` longtext COLLATE utf8_unicode_ci,
+  `privateKey` longtext COLLATE utf8_unicode_ci,
+  `encryptionAlgorithm` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_EEBE59C919EB6921` (`client_id`),
-  KEY `IDX_EEBE59C9A76ED395` (`user_id`),
-  CONSTRAINT `FK_EEBE59C919EB6921` FOREIGN KEY (`client_id`) REFERENCES `Client_OAuth2` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_EEBE59C9A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE
+  UNIQUE KEY `UNIQ_641068C019EB6921` (`client_id`),
+  CONSTRAINT `FK_7355AB8319EB6921` FOREIGN KEY (`client_id`) REFERENCES `Client_OAuth2` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `RefreshToken_OAuth2`
+-- Dumping data for table `PublicKey_OAuth2`
 --
 
-LOCK TABLES `RefreshToken_OAuth2` WRITE;
-/*!40000 ALTER TABLE `RefreshToken_OAuth2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RefreshToken_OAuth2` ENABLE KEYS */;
+LOCK TABLES `PublicKey_OAuth2` WRITE;
+/*!40000 ALTER TABLE `PublicKey_OAuth2` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PublicKey_OAuth2` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  8:37:29
+-- Dump completed on 2019-01-15 20:47:53
