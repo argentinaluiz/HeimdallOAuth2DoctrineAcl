@@ -7,17 +7,8 @@
 namespace Application;
 
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 
 return [
-    'service_manager' => [
-        'abstract_factories' => [
-            ReflectionBasedAbstractFactory::class,
-        ],
-        'factories' => [
-            'Heimdall\V1\Service\UserService\UserService' => ReflectionBasedAbstractFactory::class,
-        ],
-    ],
     'router' => [
         'routes' => [
             'home' => [

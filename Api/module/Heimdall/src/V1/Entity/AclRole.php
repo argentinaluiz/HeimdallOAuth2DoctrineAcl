@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\Hydrator;
 use Zend\Permissions\Acl\Role\RoleInterface;
 use ZF\OAuth2\Doctrine\Permissions\Acl\Role\HierarchicalInterface;
+use ZF\OAuth2\Doctrine\Entity\Client;
 /**
  * AclRole
  *
@@ -42,6 +43,17 @@ class AclRole implements RoleInterface, HierarchicalInterface
      * })
      */
     private $parent;
+
+
+    /**
+     * @var Client
+     *
+     * @ORM\ManyToOne(targetEntity="\ZF\OAuth2\Doctrine\Entity\Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     * })
+     */
+    private $client;
 
 
  /**
@@ -102,6 +114,24 @@ class AclRole implements RoleInterface, HierarchicalInterface
     public function setParent($parent)
     {
         $this->parent = $parent;
+        return $this;
+    }
+
+    /**
+     * @return AclRole
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param AclRole $client
+     * @return AclRole
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
         return $this;
     }
 

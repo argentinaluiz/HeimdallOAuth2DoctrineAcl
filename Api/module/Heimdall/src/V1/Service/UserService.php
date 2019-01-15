@@ -11,9 +11,8 @@ namespace Heimdall\V1\Service;
 
 class UserService
 {
-    public function __construct( $config = [])
+    public function __construct(array $config = [])
     {
-        $this;
         var_dump($config);
         return;
     }

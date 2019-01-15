@@ -3,18 +3,23 @@
 namespace Heimdall\V1\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Zend\Crypt\Password\Bcrypt;
+use ZF\OAuth2\Doctrine\Entity\Client;
 use ZF\OAuth2\Doctrine\Entity\UserInterface;
 use Zend\Hydrator;
 use ZF\OAuth2\Doctrine\Permissions\Acl\Role\ProviderInterface;
+use Zend\Stdlib\ArraySerializableInterface;
+
 
 /**
- * OauthUsers
+ * User
  *
  * @ORM\Table(name="User")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface, ProviderInterface
+class User implements UserInterface, ProviderInterface, ArraySerializableInterface
 {
     /**
      * @var int
@@ -23,7 +28,7 @@ class User implements UserInterface, ProviderInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -31,6 +36,22 @@ class User implements UserInterface, ProviderInterface
      * @ORM\Column(name="username", type="string", length=80, nullable=false)
      */
     private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ref", type="string", length=45, nullable=true)
+     */
+    private $ref;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=254, nullable=true)
+     */
+    private $photo;
+
 
     /**
      * @var string|null
@@ -54,7 +75,7 @@ class User implements UserInterface, ProviderInterface
     private $password;
 
     /**
-     * @var \User
+     * @var AclRole
      *
      * @ORM\ManyToOne(targetEntity="AclRole")
      * @ORM\JoinColumns({
@@ -64,6 +85,55 @@ class User implements UserInterface, ProviderInterface
     private $role;
 
 
+    /**
+     * @var Client
+     *
+     * @ORM\ManyToOne(targetEntity="\ZF\OAuth2\Doctrine\Entity\Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="parent_client", referencedColumnName="id")
+     * })
+     */
+    private $parent_client;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
+     */
+    protected $updatedAt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=true)
+     */
+    private $deleted;
+
+
+    /**
+     * @var Phone
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="userIdPhone", cascade={"persist", "remove"}, orphanRemoval=true, indexBy="phoneId")
+     */
+    private $phones;
+
+    /**
+     * @var Email
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="idUserEmail", cascade={"persist", "remove"}, orphanRemoval=true, indexBy="emailId"))
+     */
+    private $emails;
+
+    /**
+     * @var Address
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="userIdAddress", cascade={"persist", "remove"}, orphanRemoval=true, indexBy="adressId"))
+     */
+    private $address;
 
        private $accessToken;
        private $authorizationCode;
@@ -74,57 +144,14 @@ class User implements UserInterface, ProviderInterface
      * Constructor
      */
     public function __construct(array $options = []) {
-        (new Hydrator\ClassMethods)->hydrate($options, $this);
-    }
 
-    /**
-     * @param \User $role
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-        return $this;
-    }
+        $this->emails = new ArrayCollection();
+        $this->phones = new ArrayCollection();
+        $this->address = new ArrayCollection();
 
-    /**
-     * @return mixed
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRefreshToken()
-    {
-        return $this->refreshToken;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAuthorizationCode()
-    {
-        return $this->authorizationCode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClient()
-    {
-        return $this->client;
+       // (new Hydrator\ClassMethods)->hydrate($options, $this);
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -160,6 +187,42 @@ class User implements UserInterface, ProviderInterface
     public function setUsername($username)
     {
         $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRef()
+    {
+        return $this->ref;
+    }
+
+    /**
+     * @param string $ref
+     * @return User
+     */
+    public function setRef($ref)
+    {
+        $this->ref = $ref;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string $photo
+     * @return User
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
         return $this;
     }
 
@@ -200,11 +263,159 @@ class User implements UserInterface, ProviderInterface
     }
 
     /**
-     * @return string|null
+     * @return AclRole
      */
-    public function getPassword()
+    public function getRole()
     {
-        return $this->password;
+        return $this->role->getArrayCopy();
+    }
+
+    /**
+     * @param AclRole
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getParentClient()
+    {
+        return $this->parent_client->getArrayCopy();
+    }
+
+    /**
+     * @param Client $parent_client
+     * @return User
+     */
+    public function setParentClient($parent_client)
+    {
+        $this->parent_client = $parent_client;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param mixed $accessToken
+     * @return User
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorizationCode()
+    {
+        return $this->authorizationCode;
+    }
+
+    /**
+     * @param mixed $authorizationCode
+     * @return User
+     */
+    public function setAuthorizationCode($authorizationCode)
+    {
+        $this->authorizationCode = $authorizationCode;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefreshToken()
+    {
+        return $this->refreshToken;
+    }
+
+    /**
+     * @param mixed $refreshToken
+     * @return User
+     */
+    public function setRefreshToken($refreshToken)
+    {
+        $this->refreshToken = $refreshToken;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     * @return User
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = new \DateTime("now");
+        return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt($updatedAt) {
+        $this->updatedAt = new \DateTime("now");
+        return $this;
     }
 
     /**
@@ -220,8 +431,100 @@ class User implements UserInterface, ProviderInterface
         return $this;
     }
 
+    /**
+     * @return Phone
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    public function setPhones($phones = []) {
+        if (!is_array($phones)) {
+            return $this;
+        }
+        $ents = $this->getPhones();
+        foreach ($phones as $phone) {
+            if (isset($phone['phoneId'])):
+                foreach ($ents as $value):
+                    if ($value->getIdPhone() == $phone['phoneId']) {
+                        $phone['userIdPhone'] = $this;
+                        (new Hydrator\ClassMethods)->hydrate($phone, $value);
+                    }
+                endforeach;
+            else:
+                $entityPhone = new Phone($phone);
+                $entityPhone->setUserIdPhone($this);
+                $this->getPhones()->add($entityPhone);
+            endif;
+        }
+        return $this;
+    }
+
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    public function setEmails($emails = []) {
+        if (!is_array($emails)) {
+            return $this;
+        }
+        $ents = $this->getEmails();
+        foreach ($emails as $email) {
+            if (isset($email['emailId'])):
+                foreach ($ents as $value):
+                    if ($value->getEmailId() == $email['emailId']) {
+                        $email['userIdEmail'] = $this;
+                        (new Hydrator\ClassMethods)->hydrate($email, $value);
+                    }
+                endforeach;
+            else:
+                $entityEmail = new Email($email);
+                $entityEmail->setUserIdEmail($this);
+                $this->getEmails()->add($entityEmail);
+            endif;
+        }
+        return $this;
+    }
+
+    public function getAddress() {
+        return $this->address;
+    }
+
+    public function setAddress($address = []) {
+        if (!is_array($address)) {
+            return $this;
+        }
+
+        $ents = $this->getAddress();
+        foreach ($address as $addr) {
+            if (isset($addr['addressId'])):
+                foreach ($ents as $value):
+                    if ($value->getAddressId() == $addr['addressId']) {
+                        $addr['userIdAddress'] = $this;
+                        (new Hydrator\ClassMethods)->hydrate($addr, $value);
+                    }
+                endforeach;
+            else:
+                $entityAddress = new Address($addr);
+                $entityAddress->setUserIdAddress($this);
+                $this->getAddress()->add($entityAddress);
+            endif;
+        }
+        return $this;
+    }
+
+    public function exchangeArray(array $array)
+    {
+        // TODO: Implement exchangeArray() method.
+    }
+
     public function getArrayCopy()
     {
-        return get_object_vars($this);
+
+        $arr = get_object_vars($this);
+        $arr['test'] = '12345678';
+        return $arr;
     }
 }

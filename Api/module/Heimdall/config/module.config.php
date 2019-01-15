@@ -1,6 +1,13 @@
 <?php
-
 return [
+    'service_manager' => [
+        'abstract_factories' => [
+            0 => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
+        ],
+        'factories' => [
+            \Heimdall\V1\Service\UserService::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
+        ],
+    ],
     'doctrine' => [
         'driver' => [
             'Heimdall_driver' => [
@@ -22,7 +29,7 @@ return [
             'heimdall.rest.doctrine.user' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '/user[/:user_id]',
+                    'route' => '/heimdall/user[/:user_id]',
                     'defaults' => [
                         'controller' => 'Heimdall\\V1\\Rest\\User\\Controller',
                     ],
@@ -31,7 +38,7 @@ return [
             'heimdall.rest.doctrine.acl-role' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '/acl-role[/:acl_role_id]',
+                    'route' => '/heimdall/acl-role[/:acl_role_id]',
                     'defaults' => [
                         'controller' => 'Heimdall\\V1\\Rest\\AclRole\\Controller',
                     ],
@@ -88,7 +95,7 @@ return [
             'collection_query_whitelist' => [],
             'page_size' => 25,
             'page_size_param' => null,
-            'entity_class' => \Heimdall\V1\Entity\AclRoleOld::class,
+            'entity_class' => \Heimdall\V1\Entity\AclRole::class,
             'collection_class' => \Heimdall\V1\Rest\AclRole\AclRoleCollection::class,
             'service_name' => 'AclRole',
         ],
@@ -134,7 +141,7 @@ return [
                 'route_name' => 'heimdall.rest.doctrine.user',
                 'is_collection' => true,
             ],
-            \Heimdall\V1\Entity\AclRoleOld::class => [
+            'Heimdall\\V1\\Entity\\AclRoleOld' => [
                 'route_identifier_name' => 'acl_role_id',
                 'entity_identifier_name' => 'id',
                 'route_name' => 'heimdall.rest.doctrine.acl-role',
@@ -168,7 +175,7 @@ return [
             'use_generated_hydrator' => true,
         ],
         'Heimdall\\V1\\Rest\\AclRole\\AclRoleHydrator' => [
-            'entity_class' => \Heimdall\V1\Entity\AclRoleOld::class,
+            'entity_class' => \Heimdall\V1\Entity\AclRole::class,
             'object_manager' => 'doctrine.entitymanager.orm_default',
             'by_value' => true,
             'strategies' => [],

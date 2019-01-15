@@ -11,7 +11,7 @@ return [
             'object_manager' => 'doctrine.entitymanager.orm_default',
             'event_manager' => 'doctrine.eventmanager.orm_default',
             'driver' => 'doctrine.driver.orm_default',
-            'enable_default_entities' => true,
+            'enable_default_entities' => false,
             'bcrypt_cost' => 10, # match php default
             'auth_identity_fields' => ['username'],
             // Dynamically map the user_entity to the client_entity

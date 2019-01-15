@@ -7,6 +7,7 @@
 namespace Application;
 
 use Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
+use Zend\Uri\UriFactory;
 
 class Module
 {
@@ -17,6 +18,9 @@ class Module
 
     public function onBootstrap($e)
     {
+
+        UriFactory::registerScheme('chrome-extension', 'Zend\Uri\Uri');
+
         $serviceManager = $e->getApplication()->getServiceManager();
         $identity = $serviceManager->get('authentication')->getIdentity();
 
@@ -24,7 +28,16 @@ class Module
         $container = $application->getServiceManager();
 
         $container->addAbstractFactory(new ReflectionBasedAbstractFactory([
-            \Zend\ServiceManager::class => 'serviceManager',
+             \Zend\Console\Adapter\AdapterInterface::class     => 'ConsoleAdapter',
+    \Zend\Filter\FilterPluginManager::class           => 'FilterManager',
+    \Zend\Hydrator\HydratorPluginManager::class       => 'HydratorManager',
+    \Zend\InputFilter\InputFilterPluginManager::class => 'InputFilterManager',
+    \Zend\Log\FilterPluginManager::class              => 'LogFilterManager',
+    \Zend\Log\FormatterPluginManager::class           => 'LogFormatterManager',
+    \Zend\Log\ProcessorPluginManager::class           => 'LogProcessorManager',
+    \Zend\Log\WriterPluginManager::class              => 'LogWriterManager',
+    \Zend\Serializer\AdapterPluginManager::class      => 'SerializerAdapterManager',
+    \Zend\Validator\ValidatorPluginManager::class     => 'ValidatorManager',
         ]));
     }
 }
