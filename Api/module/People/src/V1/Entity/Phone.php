@@ -1,6 +1,6 @@
 <?php
 
-namespace Heimdall\V1\Entity;
+namespace People\V1\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Hydrator;
@@ -98,14 +98,14 @@ class Phone {
         return $this;
     }
 
-    public function setUserIdPhone(User $idUserPhone) {
+    public function setUserIdPhone(User $idUserPhone = null) {
         $this->userIdPhone = $idUserPhone;
         return $this;
     }
 
     public function getArrayCopy() {
         $arr = get_object_vars($this);
-        $arr['userIdPhone'] = $this->getUserIdPhone()->getUserId();
+        $arr['userIdPhone'] = $this->getUserIdPhone()->getId();
         return $arr;
     }
 

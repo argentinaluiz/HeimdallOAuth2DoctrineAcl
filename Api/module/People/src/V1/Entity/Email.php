@@ -1,6 +1,6 @@
 <?php
 
-namespace Heimdall\V1\Entity;
+namespace People\V1\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Hydrator;
@@ -104,7 +104,7 @@ class Email {
     }
 
     public function getUserIdEmail() {
-        return $this->idUserEmail;
+        return $this->userIdEmail;
     }
 
     public function getEmail() {
@@ -149,14 +149,14 @@ class Email {
         return $this;
     }
 
-    public function setUserIdEmail(User $idUserEmail) {
+    public function setUserIdEmail(User $idUserEmail = null) {
         $this->userIdEmail = $idUserEmail;
         return $this;
     }
 
     public function getArrayCopy() {
         $arr = get_object_vars($this);
-        $arr['userIdEmail'] = $this->getUserIdEmail()->getUserId();
+        $arr['userIdEmail'] = $this->getUserIdEmail()->getId();
         return $arr;
     }
 

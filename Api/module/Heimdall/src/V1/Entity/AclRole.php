@@ -48,7 +48,7 @@ class AclRole implements RoleInterface, HierarchicalInterface
     /**
      * @var Client
      *
-     * @ORM\ManyToOne(targetEntity="\ZF\OAuth2\Doctrine\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="ZF\OAuth2\Doctrine\Entity\Client")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      * })
@@ -122,6 +122,9 @@ class AclRole implements RoleInterface, HierarchicalInterface
      */
     public function getClient()
     {
+        if($this->client)
+            return $this->client->getArrayCopy();
+
         return $this->client;
     }
 

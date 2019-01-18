@@ -40,6 +40,5 @@ return [
     'Application',
     'Status',
     'Heimdall',
-    'User',
-    'OAuth2',
+    36 => 'OAuth2',
 ];

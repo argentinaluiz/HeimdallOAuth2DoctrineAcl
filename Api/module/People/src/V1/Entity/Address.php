@@ -1,6 +1,6 @@
 <?php
 
-namespace Heimdall\V1\Entity;
+namespace People\V1\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Hydrator;
@@ -219,14 +219,14 @@ class Address {
         return $this;
     }
 
-    public function setUserIdAddress(User $userIdAddress) {
+    public function setUserIdAddress(User $userIdAddress = null) {
         $this->userIdAddress = $userIdAddress;
         return $this;
     }
 
     public function getArrayCopy() {
         $arr = get_object_vars($this);
-        $arr['userIdAddress'] = $this->getUserIdAddress()->getUserId();
+        $arr['userIdAddress'] = $this->getUserIdAddress()->getId();
         return $arr;
     }
 

@@ -41,4 +41,5 @@ return [
     'Status',
     'Heimdall',
     36 => 'OAuth2',
+    'People',
 ];

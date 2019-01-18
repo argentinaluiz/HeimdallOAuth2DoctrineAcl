@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1738e2c8858e7e358031783faef8b201",
+    "content-hash": "03f7c37d8144de41668772b13684e435",
     "packages": [
         {
             "name": "api-skeletons/zf-doctrine-module-zend-hydrator",
@@ -1096,12 +1096,12 @@
             "version": "v2.6.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/doctrine2.git",
+                "url": "https://github.com/doctrine/orm.git",
                 "reference": "434820973cadf2da2d66e7184be370084cc32ca8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/434820973cadf2da2d66e7184be370084cc32ca8",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/434820973cadf2da2d66e7184be370084cc32ca8",
                 "reference": "434820973cadf2da2d66e7184be370084cc32ca8",
                 "shasum": ""
             },
