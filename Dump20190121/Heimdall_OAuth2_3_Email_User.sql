@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `Heimdall_OAuth2`;
+CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2_3` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `Heimdall_OAuth2_3`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: Heimdall_OAuth2
+-- Host: 127.0.0.1    Database: Heimdall_OAuth2_3
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.34-MariaDB-0ubuntu0.18.04.1
 
@@ -18,30 +18,35 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `AuthorizationCodeToScope_OAuth2`
+-- Table structure for table `Email_User`
 --
 
-DROP TABLE IF EXISTS `AuthorizationCodeToScope_OAuth2`;
+DROP TABLE IF EXISTS `Email_User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `AuthorizationCodeToScope_OAuth2` (
-  `scope_id` bigint(20) NOT NULL,
-  `authorization_code_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`scope_id`,`authorization_code_id`),
-  KEY `IDX_BCE56679682B5931` (`scope_id`),
-  KEY `IDX_BCE56679847B7245` (`authorization_code_id`),
-  CONSTRAINT `FK_1EA6C7E682B5931` FOREIGN KEY (`scope_id`) REFERENCES `Scope_OAuth2` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_1EA6C7E847B7245` FOREIGN KEY (`authorization_code_id`) REFERENCES `AuthorizationCode_OAuth2` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `Email_User` (
+  `user_id` int(11) DEFAULT NULL,
+  `emailId` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
+  `isFirst` tinyint(1) DEFAULT NULL,
+  `checked` tinyint(1) DEFAULT NULL,
+  `hash` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  `mailing` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`emailId`),
+  KEY `IDX_FDCA5A22A76ED395` (`user_id`),
+  CONSTRAINT `FK_FDCA5A22A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `AuthorizationCodeToScope_OAuth2`
+-- Dumping data for table `Email_User`
 --
 
-LOCK TABLES `AuthorizationCodeToScope_OAuth2` WRITE;
-/*!40000 ALTER TABLE `AuthorizationCodeToScope_OAuth2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `AuthorizationCodeToScope_OAuth2` ENABLE KEYS */;
+LOCK TABLES `Email_User` WRITE;
+/*!40000 ALTER TABLE `Email_User` DISABLE KEYS */;
+INSERT INTO `Email_User` VALUES (1,1,'prazeres@gmail.com',1,NULL,NULL,NULL,NULL),(1,2,'prazeres2@gmail.com',NULL,NULL,NULL,NULL,NULL),(2,3,'lauoliveiraa@gmail.com',1,NULL,NULL,NULL,NULL),(2,4,'lauoliveiraa@hotmaill.com',NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `Email_User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-15 20:47:53
+-- Dump completed on 2019-01-21 18:17:51

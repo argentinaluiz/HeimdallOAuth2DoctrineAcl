@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `Heimdall_OAuth2`;
+CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2_3` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `Heimdall_OAuth2_3`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: Heimdall_OAuth2
+-- Host: 127.0.0.1    Database: Heimdall_OAuth2_3
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.34-MariaDB-0ubuntu0.18.04.1
 
@@ -40,7 +40,7 @@ CREATE TABLE `Address_User` (
   PRIMARY KEY (`addressId`),
   KEY `IDX_48DC7264A76ED395` (`user_id`),
   CONSTRAINT `FK_48DC7264A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,6 +49,7 @@ CREATE TABLE `Address_User` (
 
 LOCK TABLES `Address_User` WRITE;
 /*!40000 ALTER TABLE `Address_User` DISABLE KEYS */;
+INSERT INTO `Address_User` VALUES (1,1,'Rua Casa Branca',NULL,'555',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,2,'Rua Casa Branca',NULL,'555',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `Address_User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-15 20:47:53
+-- Dump completed on 2019-01-21 18:17:50

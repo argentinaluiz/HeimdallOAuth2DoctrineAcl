@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `Heimdall_OAuth2`;
+CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2_3` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `Heimdall_OAuth2_3`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: Heimdall_OAuth2
+-- Host: 127.0.0.1    Database: Heimdall_OAuth2_3
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.34-MariaDB-0ubuntu0.18.04.1
 
@@ -18,30 +18,30 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `RefreshTokenToScope_OAuth2`
+-- Table structure for table `AuthorizationCodeToScope_OAuth2`
 --
 
-DROP TABLE IF EXISTS `RefreshTokenToScope_OAuth2`;
+DROP TABLE IF EXISTS `AuthorizationCodeToScope_OAuth2`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `RefreshTokenToScope_OAuth2` (
+CREATE TABLE `AuthorizationCodeToScope_OAuth2` (
   `scope_id` bigint(20) NOT NULL,
-  `refresh_token_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`scope_id`,`refresh_token_id`),
-  KEY `IDX_A8852CC9682B5931` (`scope_id`),
-  KEY `IDX_A8852CC9F765F60E` (`refresh_token_id`),
-  CONSTRAINT `FK_9F46C12E682B5931` FOREIGN KEY (`scope_id`) REFERENCES `Scope_OAuth2` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_9F46C12EF765F60E` FOREIGN KEY (`refresh_token_id`) REFERENCES `RefreshToken_OAuth2` (`id`) ON DELETE CASCADE
+  `authorization_code_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`scope_id`,`authorization_code_id`),
+  KEY `IDX_1EA6C7E682B5931` (`scope_id`),
+  KEY `IDX_1EA6C7E847B7245` (`authorization_code_id`),
+  CONSTRAINT `FK_1EA6C7E682B5931` FOREIGN KEY (`scope_id`) REFERENCES `Scope_OAuth2` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_1EA6C7E847B7245` FOREIGN KEY (`authorization_code_id`) REFERENCES `AuthorizationCode_OAuth2` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `RefreshTokenToScope_OAuth2`
+-- Dumping data for table `AuthorizationCodeToScope_OAuth2`
 --
 
-LOCK TABLES `RefreshTokenToScope_OAuth2` WRITE;
-/*!40000 ALTER TABLE `RefreshTokenToScope_OAuth2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RefreshTokenToScope_OAuth2` ENABLE KEYS */;
+LOCK TABLES `AuthorizationCodeToScope_OAuth2` WRITE;
+/*!40000 ALTER TABLE `AuthorizationCodeToScope_OAuth2` DISABLE KEYS */;
+/*!40000 ALTER TABLE `AuthorizationCodeToScope_OAuth2` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-15 20:47:52
+-- Dump completed on 2019-01-21 18:17:49

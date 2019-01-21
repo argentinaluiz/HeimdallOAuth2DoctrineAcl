@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `Heimdall_OAuth2`;
+CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2_3` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `Heimdall_OAuth2_3`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: Heimdall_OAuth2
+-- Host: 127.0.0.1    Database: Heimdall_OAuth2_3
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.34-MariaDB-0ubuntu0.18.04.1
 
@@ -31,11 +31,9 @@ CREATE TABLE `RefreshToken_OAuth2` (
   `refreshToken` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `expires` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_7A035BD519EB6921` (`client_id`),
-  KEY `IDX_7A035BD5A76ED395` (`user_id`),
-  CONSTRAINT `FK_EEBE59C919EB6921` FOREIGN KEY (`client_id`) REFERENCES `Client_OAuth2` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_EEBE59C9A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `IDX_EEBE59C919EB6921` (`client_id`),
+  CONSTRAINT `FK_EEBE59C919EB6921` FOREIGN KEY (`client_id`) REFERENCES `Client_OAuth2` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +42,6 @@ CREATE TABLE `RefreshToken_OAuth2` (
 
 LOCK TABLES `RefreshToken_OAuth2` WRITE;
 /*!40000 ALTER TABLE `RefreshToken_OAuth2` DISABLE KEYS */;
-INSERT INTO `RefreshToken_OAuth2` VALUES (1,1,1,'f2a4c6a5f71e51da33ead82261c37daec7329d81','2019-01-28 08:27:30'),(2,1,1,'b49dda7f95722cb10b391037b0834fa9d2629a87','2019-01-28 08:40:07'),(3,1,1,'5559cc488086689586d503ce36058a5cfb68be28','2019-01-28 08:40:31'),(4,1,1,'6cea78da8cd62b3c166d8376e3ea545af5965a6b','2019-01-29 02:18:21'),(5,1,1,'3affad44af0054f031dc2313390bf2713e89d27c','2019-01-29 02:18:24'),(6,1,1,'0cec6cc2e06c4a48de0808ff03bd1d3ea92fe219','2019-01-29 02:31:50'),(7,1,1,'f805cd8b624734ae29bfaffe55131c439c0b5545','2019-01-29 11:06:44');
 /*!40000 ALTER TABLE `RefreshToken_OAuth2` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-15 20:47:53
+-- Dump completed on 2019-01-21 18:17:50

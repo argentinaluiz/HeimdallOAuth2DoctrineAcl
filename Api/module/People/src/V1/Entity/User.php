@@ -4,9 +4,7 @@ namespace People\V1\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use phpDocumentor\Reflection\Types\This;
 use Zend\Crypt\Password\Bcrypt;
-use ZF\Hal\Collection;
 use ZF\OAuth2\Doctrine\Entity\Client;
 use Zend\Hydrator;
 
@@ -162,7 +160,6 @@ class User
      * @ORM\Column(name="occupation", type="string", length=45, nullable=true)
      */
     private $occupation;
-
 
        private $accessToken;
        private $authorizationCode;
@@ -363,16 +360,13 @@ class User
         return $this;
     }
 
-
-
     /**
      * @return AclRole
      */
     public function getRole()
     {
-        if(null != $this->role)
-            return $this->role->getArrayCopy();
-
+//        if(null != $this->role)
+//            return $this->role->getArrayCopy();
 
                 return $this->role;
     }
@@ -392,9 +386,9 @@ class User
      */
     public function getParentClient()
     {
-        if( null != $this->parent_client){
-            return $this->parent_client->getArrayCopy();
-        }
+//        if( null != $this->parent_client)
+//            return $this->parent_client->getArrayCopy();
+
         return $this->parent_client;
     }
 
@@ -542,12 +536,7 @@ class User
         return $this;
     }
 
-    /**
-     * @return ArrayCollection Phone
-     */
-    public function getPhones()
-    {
-        return $this->phones;
+    public function getPhoneCollection(){
         if ($this->phones->count() > 0):
             $phones = [];
             foreach ($this->phones as $key => $value) {
@@ -556,6 +545,15 @@ class User
             return $phones;
         endif;
         return $this->phones;
+    }
+
+    /**
+     * @return ArrayCollection Phone
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+
     }
 
     public function addPhones($phones){
@@ -577,9 +575,7 @@ class User
         return $this;
     }
 
-    public function getEmails()
-    {
-        return $this->emails;
+    public function getEmailCollection(){
         if ($this->emails->count() > 0):
             $emails = [];
             foreach ($this->emails as $key => $value) {
@@ -587,6 +583,9 @@ class User
             }
             return $emails;
         endif;
+    }
+    public function getEmails()
+    {
         return $this->emails;
     }
 
@@ -614,15 +613,16 @@ class User
         return $this;
     }
 
-    public function getAddress() {
-        return $this->address;
+    public function getAddressCollection(){
         if ($this->address->count() > 0):
             $address = array();
             foreach ($this->address as $key => $value) {
                 $address[] = $value->getArrayCopy();
             }
-           return $address;
+            return $address;
         endif;
+    }
+    public function getAddress() {
         return $this->address;
     }
 

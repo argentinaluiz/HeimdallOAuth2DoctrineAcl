@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `Heimdall_OAuth2`;
+CREATE DATABASE  IF NOT EXISTS `Heimdall_OAuth2_3` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `Heimdall_OAuth2_3`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: Heimdall_OAuth2
+-- Host: 127.0.0.1    Database: Heimdall_OAuth2_3
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.34-MariaDB-0ubuntu0.18.04.1
 
@@ -18,35 +18,32 @@ USE `Heimdall_OAuth2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Email_User`
+-- Table structure for table `Jti_OAuth2`
 --
 
-DROP TABLE IF EXISTS `Email_User`;
+DROP TABLE IF EXISTS `Jti_OAuth2`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `Email_User` (
-  `user_id` int(11) DEFAULT NULL,
-  `emailId` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
-  `isFirst` tinyint(1) DEFAULT NULL,
-  `checked` tinyint(1) DEFAULT NULL,
-  `hash` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updatedAt` datetime DEFAULT NULL,
-  `mailing` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`emailId`),
-  KEY `IDX_FDCA5A22A76ED395` (`user_id`),
-  CONSTRAINT `FK_FDCA5A22A76ED395` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `Jti_OAuth2` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `client_id` bigint(20) NOT NULL,
+  `subject` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `audience` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `expires` datetime DEFAULT NULL,
+  `jti` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `IDX_2C13A64519EB6921` (`client_id`),
+  CONSTRAINT `FK_2C13A64519EB6921` FOREIGN KEY (`client_id`) REFERENCES `Client_OAuth2` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Email_User`
+-- Dumping data for table `Jti_OAuth2`
 --
 
-LOCK TABLES `Email_User` WRITE;
-/*!40000 ALTER TABLE `Email_User` DISABLE KEYS */;
-INSERT INTO `Email_User` VALUES (1,1,'nataliadesouzasantaana@gmail.com',NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `Email_User` ENABLE KEYS */;
+LOCK TABLES `Jti_OAuth2` WRITE;
+/*!40000 ALTER TABLE `Jti_OAuth2` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Jti_OAuth2` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-15 20:47:54
+-- Dump completed on 2019-01-21 18:17:51
