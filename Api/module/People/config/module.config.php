@@ -245,9 +245,10 @@ return [
             ],
             \People\V1\Entity\Phone::class => [
                 'route_identifier_name' => 'phone_id',
-                'entity_identifier_name' => 'id',
+                'entity_identifier_name' => 'phoneId',
                 'route_name' => 'people.rest.doctrine.phone',
                 'hydrator' => 'People\\V1\\Rest\\Phone\\PhoneHydrator',
+                'max_depth' => 2
             ],
             \People\V1\Rest\Phone\PhoneCollection::class => [
                 'entity_identifier_name' => 'id',
@@ -281,7 +282,9 @@ return [
             'entity_class' => \People\V1\Entity\User::class,
             'object_manager' => 'doctrine.entitymanager.orm_default',
             'by_value' => true,
-            'strategies' => [],
+            'strategies' => [
+                'phones' => 'ZF\Doctrine\Hydrator\Strategy\CollectionExtract',
+            ],
             'use_generated_hydrator' => true,
         ],
         'People\\V1\\Rest\\Address\\AddressHydrator' => [

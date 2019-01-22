@@ -4,8 +4,77 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03f7c37d8144de41668772b13684e435",
+    "content-hash": "c8c7f2c15978d36e320fa3beab1ae81f",
     "packages": [
+        {
+            "name": "api-skeletons/zf-doctrine-hydrator",
+            "version": "3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/API-Skeletons/zf-doctrine-hydrator.git",
+                "reference": "c41d022c323ae44c4274b5875057dd6168361650"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/API-Skeletons/zf-doctrine-hydrator/zipball/c41d022c323ae44c4274b5875057dd6168361650",
+                "reference": "c41d022c323ae44c4274b5875057dd6168361650",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "phpro/zf-doctrine-hydration-module": "^3.0",
+                "zendframework/zend-eventmanager": "^2.4 || ~3.0",
+                "zendframework/zend-modulemanager": "^2.7",
+                "zendframework/zend-servicemanager": "^3.0",
+                "zfcampus/zf-apigility-doctrine": "^2.0"
+            },
+            "require-dev": {
+                "api-skeletons/coding-standard": "^1.0",
+                "doctrine/data-fixtures": "*",
+                "doctrine/doctrine-orm-module": "*",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*",
+                "zendframework/zend-config": "*",
+                "zendframework/zend-console": "*",
+                "zendframework/zend-i18n": "*",
+                "zendframework/zend-log": "*",
+                "zendframework/zend-serializer": "*",
+                "zendframework/zend-test": "*",
+                "zfcampus/zf-apigility": "*",
+                "zfcampus/zf-configuration": "*"
+            },
+            "type": "library",
+            "extra": {
+                "zf": {
+                    "module": "ZF\\Doctrine\\Hydrator"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ZF\\Doctrine\\Hydrator\\": "src/",
+                    "ZFTest\\Doctrine\\Hydrator\\": "test/"
+                },
+                "classmap": [
+                    "Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom H Anderson",
+                    "email": "tom.h.anderson@gmail.com"
+                },
+                {
+                    "name": "Marcelo Insabralde",
+                    "email": "marcelominsabralde@gmail.com"
+                }
+            ],
+            "description": "A collection of common hydrators for phpro/zf-doctrine-hydration-module",
+            "time": "2018-12-18T06:21:40+00:00"
+        },
         {
             "name": "api-skeletons/zf-doctrine-module-zend-hydrator",
             "version": "1.0.2",

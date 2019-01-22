@@ -41,7 +41,8 @@
         "api-skeletons/zf-oauth2-doctrine-console": "^2.0",
         "api-skeletons/zf-oauth2-doctrine-permissions-acl": "^2.0",
         "api-skeletons/zf-oauth2-doctrine-identity": "^3.0",
-        "zfcampus/zf-hal": "^1.6"
+        "zfcampus/zf-hal": "^1.6",
+        "api-skeletons/zf-doctrine-hydrator": "*"
     },
     "require-dev": {
         "zendframework/zend-developer-tools": "^1.2.1",

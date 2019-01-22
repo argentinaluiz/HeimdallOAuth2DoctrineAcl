@@ -33,6 +33,7 @@ return [
     'ZF\\Rpc',
     'ZF\\Versioning',
     'DoctrineModule',
+    'ZF\Doctrine\Hydrator',
     'Phpro\\DoctrineHydrationModule',
     'ZF\\Apigility\\Doctrine\\Server',
     'DoctrineORMModule',
@@ -40,6 +41,6 @@ return [
     'Application',
     'Status',
     'Heimdall',
-    36 => 'OAuth2',
+    'OAuth2',
     'People',
 ];
